@@ -2,15 +2,17 @@ package com.ravi.springboot.Model;
 
 public class User {
 
-	private final long id;
-    private final String name;
+	private String id;
+    private String name;
 
-    public User(long id, String name) {
+    public User() {}
+    
+	public User(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
