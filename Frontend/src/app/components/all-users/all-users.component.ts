@@ -15,6 +15,7 @@ export class AllUsersComponent implements OnInit {
 
   ngOnInit() {
     // TODO: use this to get all users!!!
+    // may need to do cross origin in java (see part 4: https://www.youtube.com/watch?v=v4_QR4PAPsM)
     // this._userService.getUsers().subscribe((users) => {
     //   console.log(users);
     //   this.users = users;
@@ -25,7 +26,7 @@ export class AllUsersComponent implements OnInit {
       {id: 1, firstName: "abc", lastName: "abc", dateOfBirth: new Date('03/22/4007'), username: 'ravster', password: 'red son' },
       {id: 1, firstName: "xyz", lastName: "xyz", dateOfBirth: new Date('04/22/4007'), username: 'ravster', password: 'red son' },
       {id: 1, firstName: "mno", lastName: "mno", dateOfBirth: new Date('05/22/4007'), username: 'ravster', password: 'red son' },
-    ];'MM/dd/yyyy'
+    ];
   }
 
 }
