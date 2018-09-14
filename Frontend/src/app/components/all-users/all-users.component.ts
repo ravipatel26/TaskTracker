@@ -24,9 +24,17 @@ export class AllUsersComponent implements OnInit {
     // })
     this.users = [
       {id: 1, firstName: "abc", lastName: "abc", dateOfBirth: new Date('03/22/4007'), username: 'ravster', password: 'red son' },
-      {id: 1, firstName: "xyz", lastName: "xyz", dateOfBirth: new Date('04/22/4007'), username: 'ravster', password: 'red son' },
-      {id: 1, firstName: "mno", lastName: "mno", dateOfBirth: new Date('05/22/4007'), username: 'ravster', password: 'red son' },
+      {id: 2, firstName: "xyz", lastName: "xyz", dateOfBirth: new Date('04/22/4007'), username: 'ravster', password: 'red son' },
+      {id: 3, firstName: "mno", lastName: "mno", dateOfBirth: new Date('05/22/4007'), username: 'ravster', password: 'red son' },
     ];
   }
 
+  deleteUser(user) {
+    console.log(user);
+    // this._userService.deleteUser(user.id).subscribe((data) => {
+      this.users.splice(this.users.indexOf(user),1);
+    // }, (error) => {
+    //   console.log(error);
+    // });
+  }
 }
