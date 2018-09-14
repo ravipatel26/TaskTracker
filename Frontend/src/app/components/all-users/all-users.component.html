@@ -16,11 +16,11 @@
         <td>{{user.dateOfBirth | date }}</td>
         <td>{{user.username}}</td>
         <td>
-          <button class="btn btn-warning">Edit</button>
-          <button class="btn btn-danger" (click)="deleteUser()">Delete</button>
+          <button class="btn btn-outline-warning btm-sm" (click)="editUser(user)">Edit</button>
+          <button class="btn btn-outline-danger btm-sm" (click)="deleteUser(user)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
-  <button class="btn btn-primary">Add User</button>
+  <button class="btn btn-primary" (click)="createUser()">Add User</button>
 </div>

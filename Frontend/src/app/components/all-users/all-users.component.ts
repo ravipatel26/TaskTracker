@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-users',
@@ -11,7 +12,7 @@ export class AllUsersComponent implements OnInit {
 
   private users:User[];
 
-  constructor(private _userService:UserService) { }
+  constructor(private _userService:UserService, private _router:Router) { }
 
   ngOnInit() {
     // TODO: use this to get all users!!!
@@ -36,5 +37,16 @@ export class AllUsersComponent implements OnInit {
     // }, (error) => {
     //   console.log(error);
     // });
+  }
+
+  editUser(user) {
+    this._userService.setter(user);
+    this._router.navigate(['/user']);
+  }
+
+  createUser() {
+    let user = new User();
+    this._userService.setter(user);
+    this._router.navigate(['/user']);
   }
 }
