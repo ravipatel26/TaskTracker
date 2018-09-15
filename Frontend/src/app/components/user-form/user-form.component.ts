@@ -34,6 +34,18 @@ export class UserFormComponent implements OnInit {
     //     console.log(error);
     //   })
     // }
+    console.log(this.user);
     this._router.navigate(["/"]);
+  }
+
+  deleteUser(user) {
+    console.log(user);
+    this._router.navigate(["/"]);
+    // this._userService.deleteUser(user.id).subscribe((data) => {
+    //   console.log(data);
+    //   this._router.navigate(["/"]);
+    // }, (error) => {
+    //   console.log(error);
+    // });
   }
 }

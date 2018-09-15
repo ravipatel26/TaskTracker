@@ -30,15 +30,6 @@ export class AllUsersComponent implements OnInit {
     ];
   }
 
-  deleteUser(user) {
-    console.log(user);
-    // this._userService.deleteUser(user.id).subscribe((data) => {
-      this.users.splice(this.users.indexOf(user),1);
-    // }, (error) => {
-    //   console.log(error);
-    // });
-  }
-
   editUser(user) {
     this._userService.setter(user);
     this._router.navigate(['/user']);
