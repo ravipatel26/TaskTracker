@@ -18,4 +18,22 @@ export class UserFormComponent implements OnInit {
     this.user=this._userService.getter();
   }
 
+  submitUser() {
+    // if (this.user.id==undefined) {
+    //   this._userService.createUser(this.user).subscribe((user)=>{
+    //     console.log(user);
+    //     this._router.navigate(["/"]);
+    //   },(error)=>{
+    //     console.log(error);
+    //   })
+    // } else {
+    //   this._userService.editUser(this.user).subscribe((user)=>{
+    //     console.log(user);
+    //     this._router.navigate(["/"]);
+    //   },(error)=>{
+    //     console.log(error);
+    //   })
+    // }
+    this._router.navigate(["/"]);
+  }
 }

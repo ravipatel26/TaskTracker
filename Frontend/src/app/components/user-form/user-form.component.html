@@ -1,6 +1,6 @@
 <div class="container">
-  <form>
-    <div class="form group">
+  <form (ngSubmit)="submitUser()">
+    <div class="form group" style="display: none;">
       <label for="id">Id</label>
       <input type="text" name="id" class="form-control" [(ngModel)]="user.id">
     </div>
