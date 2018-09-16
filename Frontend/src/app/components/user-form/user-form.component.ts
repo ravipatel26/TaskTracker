@@ -41,11 +41,11 @@ export class UserFormComponent implements OnInit {
   deleteUser(user) {
     console.log(user);
     this._router.navigate(["/"]);
-    // this._userService.deleteUser(user.id).subscribe((data) => {
-    //   console.log(data);
-    //   this._router.navigate(["/"]);
-    // }, (error) => {
-    //   console.log(error);
-    // });
+    this._userService.deleteUser(user.id).subscribe((data) => {
+      console.log(data);
+      this._router.navigate(["/"]);
+    }, (error) => {
+      console.log(error);
+    });
   }
 }

@@ -33,9 +33,9 @@ export class UserService {
   }
 
   deleteUser(id:Number) {
-    return this._http.delete(this.baseUrl + '/deleteUser/' + id , this.options)
+    return this._http.delete(this.baseUrl + '/deleteUser/' + id, this.options)
                      .pipe(
-                       map((response:Response)=>response.json()),
+                       map((response:Response)=>response),
                        catchError(this.errorHandler)
                       );
   }
@@ -48,8 +48,8 @@ export class UserService {
                       );
   }
 
-  editUser(user:User) {
-    return this._http.post(this.baseUrl + '/editUser' , JSON.stringify(user), this.options)
+  editUser(user:User, id:Number) {
+    return this._http.post(this.baseUrl + '/editUser/' + id, JSON.stringify(user), this.options)
                      .pipe(
                        map((response:Response)=>response.json()),
                        catchError(this.errorHandler)
