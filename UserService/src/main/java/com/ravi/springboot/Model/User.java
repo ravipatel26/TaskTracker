@@ -1,23 +1,21 @@
 package com.ravi.springboot.Model;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class User {
 
-	private Long id;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String username;
 	private String password;
     @JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfBirth;
-	// TODO: private String type; "admin" or "user"
 
     public User() {}
 
-	public User(Long id, String firstName, String lastName, String username, String password, Date dateOfBirth) {
+	public User(int id, String firstName, String lastName, String username, String password, Date dateOfBirth) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -26,11 +24,11 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -73,6 +71,4 @@ public class User {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-    
-	
 }
