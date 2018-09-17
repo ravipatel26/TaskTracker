@@ -46,4 +46,13 @@ public class UserService {
 	public void deleteUser(int id) {
 		users.removeIf(u -> u.getId() == id);
 	}
+	
+	public boolean isUniqueUsername(String username) {
+		for (User u : users) {
+			if (u.getUsername().equals(username)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

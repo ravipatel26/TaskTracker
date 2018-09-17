@@ -28,7 +28,9 @@ export class UserFormComponent implements OnInit {
                 });
   }
 
-  get form() { return this.registerForm.controls; }
+  get form() {
+    return this.registerForm.controls;
+  }
 
   submitUser() {
     this.submitted = true;
@@ -38,6 +40,17 @@ export class UserFormComponent implements OnInit {
       console.log('Invalid controls:' + this.findInvalidControls());
       return;
     }
+
+    this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
+      console.log(response);
+      if (!response) {
+        alert("The username provided is not unique!\nEnter another username");
+        return;
+      }
+    },(error)=>{
+      console.log(error);
+      return;
+    })
 
     if (this.registerForm.controls.confirmationPassword.value !== this.registerForm.controls.password.value) {
       alert("Passwords don't match!\n" + this.registerForm.controls.confirmationPassword.value + "\n" + this.registerForm.controls.password);
