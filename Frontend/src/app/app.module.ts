@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserService } from './services/user.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes:Routes = [
   { path:'', component:AllUsersComponent },
@@ -23,6 +24,7 @@ const appRoutes:Routes = [
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [UserService],

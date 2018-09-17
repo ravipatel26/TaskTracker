@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-form',
@@ -11,14 +12,38 @@ import { UserService } from '../../services/user.service';
 export class UserFormComponent implements OnInit {
 
   private user:User;
+  private registerForm: FormGroup;
+  private submitted = false;
 
-  constructor(private _userService:UserService, private _router:Router) { }
+  constructor(private _userService:UserService, private _router:Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.user=this._userService.getter();
+    this.user = this._userService.getter();
+    this.registerForm = this.formBuilder.group({
+                  firstName: ['', Validators.required],
+                  lastName: ['', Validators.required],
+                  username: ['', Validators.required],
+                  password: ['', [Validators.required, Validators.minLength(6)]],
+                  confirmationPassword: ['', [Validators.required, Validators.minLength(6)]]
+                });
   }
 
+  get form() { return this.registerForm.controls; }
+
   submitUser() {
+    this.submitted = true;
+ 
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      console.log('Invalid controls:' + this.findInvalidControls());
+      return;
+    }
+
+    if (this.registerForm.controls.confirmationPassword.value !== this.registerForm.controls.password.value) {
+      alert("Passwords don't match!\n" + this.registerForm.controls.confirmationPassword.value + "\n" + this.registerForm.controls.password);
+      return;
+    }
+
     if (this.user.id == undefined) {
       this._userService.createUser(this.user).subscribe((data)=>{
         this._router.navigate(["/"]);
@@ -45,4 +70,15 @@ export class UserFormComponent implements OnInit {
       console.log(error);
     });
   }
+
+ findInvalidControls() {
+    const invalid = [];
+    const controls = this.registerForm.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    return invalid;
+}
 }
