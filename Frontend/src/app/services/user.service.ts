@@ -43,7 +43,7 @@ export class UserService {
   createUser(user:User) {
     return this._http.post(this.baseUrl + '/createUser' , JSON.stringify(user), this.options)
                      .pipe(
-                       map((response:Response)=>response.json()),
+                       map((response:Response)=>response),
                        catchError(this.errorHandler)
                       );
   }
@@ -51,7 +51,7 @@ export class UserService {
   editUser(user:User, id:Number) {
     return this._http.post(this.baseUrl + '/editUser/' + id, JSON.stringify(user), this.options)
                      .pipe(
-                       map((response:Response)=>response.json()),
+                       map((response:Response)=>response),
                        catchError(this.errorHandler)
                       );
   }

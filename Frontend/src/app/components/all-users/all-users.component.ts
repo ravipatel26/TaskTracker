@@ -18,7 +18,7 @@ export class AllUsersComponent implements OnInit {
       if (event instanceof UserFormComponent) {
         this.ngOnInit();
       }
-    }
+    })
   }
 
   ngOnInit() {

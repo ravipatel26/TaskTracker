@@ -19,28 +19,25 @@ export class UserFormComponent implements OnInit {
   }
 
   submitUser() {
-    // if (this.user.id==undefined) {
-    //   this._userService.createUser(this.user).subscribe((user)=>{
-    //     console.log(user);
-    //     this._router.navigate(["/"]);
-    //   },(error)=>{
-    //     console.log(error);
-    //   })
-    // } else {
-    //   this._userService.editUser(this.user).subscribe((user)=>{
-    //     console.log(user);
-    //     this._router.navigate(["/"]);
-    //   },(error)=>{
-    //     console.log(error);
-    //   })
-    // }
-    console.log(this.user);
-    this._router.navigate(["/"]);
+    if (this.user.id == undefined) {
+      this._userService.createUser(this.user).subscribe((data)=>{
+        this._router.navigate(["/"]);
+        console.log(data);
+      },(error)=>{
+        console.log(error);
+      })
+    } else {
+      this._userService.editUser(this.user, this.user.id).subscribe((data)=>{
+        this._router.navigate(["/"]);
+        console.log(data);
+      },(error)=>{
+        console.log(error);
+      })
+    }
   }
 
   deleteUser(user) {
     console.log(user);
-    this._router.navigate(["/"]);
     this._userService.deleteUser(user.id).subscribe((data) => {
       console.log(data);
       this._router.navigate(["/"]);
