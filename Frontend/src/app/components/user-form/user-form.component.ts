@@ -35,7 +35,7 @@ export class UserFormComponent implements OnInit {
  
     // stop here if form is invalid
     if (this.registerForm.invalid) {
-      console.log('11111111111111111111111111111');
+      console.log('Invalid controls:' + this.findInvalidControls());
       return;
     }
 
