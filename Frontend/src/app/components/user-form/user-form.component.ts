@@ -24,7 +24,7 @@ export class UserFormComponent implements OnInit {
                   lastName: ['', Validators.required],
                   username: ['', Validators.required],
                   password: ['', [Validators.required, Validators.minLength(6)]],
-                  confirmationPassword: ['', [Validators.required, Validators.minLength(6)]]
+                  confirmationPassword: [this.user.password, [Validators.required, Validators.minLength(6)]]
                 });
   }
 
@@ -42,7 +42,7 @@ export class UserFormComponent implements OnInit {
     }
 
     if (this.registerForm.controls.confirmationPassword.value !== this.registerForm.controls.password.value) {
-      alert("Passwords don't match!\n" + this.registerForm.controls.confirmationPassword.value + "\n" + this.registerForm.controls.password);
+      alert("Passwords don't match!\n");
       return;
     }
 
