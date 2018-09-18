@@ -20,6 +20,11 @@ public class UserRepository {
 
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
 		    System.out.println("Database connected!");
+		    Statement stmt = connection.createStatement();
+		    ResultSet rs = stmt.executeQuery("select * from user");
+		    while (rs.next()) {
+		    	System.out.println(rs.getString("firstName"));
+		    }
 		} catch (SQLException e) {
 		    throw new IllegalStateException("Cannot connect the database!", e);
 		}
