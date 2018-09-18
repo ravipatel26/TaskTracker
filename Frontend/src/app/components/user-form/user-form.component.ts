@@ -22,7 +22,7 @@ export class UserFormComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
                   firstName: ['', Validators.required],
                   lastName: ['', Validators.required],
-                  username: ['', Validators.required],
+                  username: [{value: '', disabled: this.user.username !== undefined}, Validators.required],
                   password: ['', [Validators.required, Validators.minLength(6)]],
                   confirmationPassword: [this.user.password, [Validators.required, Validators.minLength(6)]]
                 });
