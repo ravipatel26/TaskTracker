@@ -6,19 +6,26 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ravi.springboot.Model.User;
+import com.ravi.springboot.Repository.UserRepository;
 
 @Service
 public class UserService {
+	
+	@Autowired
+	private UserRepository userRepository;
 
-	private List<User> users = new ArrayList<User>(Arrays.asList(
-			new User(1, "Ravi", "Patel", "ravster", "redson", new Date()),
-			new User(2, "Bruce", "Wayne", "batman", "gotham", new Date())
-	));
+	private List<User> users = new ArrayList<User>();
+//		Arrays.asList(
+//			new User(1, "Ravi", "Patel", "ravster", "redson", new Date()),
+//			new User(2, "Bruce", "Wayne", "batman", "gotham", new Date())
+//	));
 	
 	public List<User> getUsers() {
+		userRepository.findAll().forEach(users::add);
 		return users;
 	}
 	

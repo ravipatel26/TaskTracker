@@ -1,16 +1,31 @@
 package com.ravi.springboot.Model;
 
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+@Entity
 public class User {
 
+	@Id
+	@Column(name="id")
+	@GeneratedValue
 	private int id;
+	@Column(name="firstName")
 	private String firstName;
+	@Column(name="lastName")
 	private String lastName;
+	@Column(name="username")
 	private String username;
+	@Column(name="password")
 	private String password;
     @JsonFormat(pattern="yyyy-MM-dd")
+    @Column(name="date_of_birth")
 	private Date dateOfBirth;
 
     public User() {}
