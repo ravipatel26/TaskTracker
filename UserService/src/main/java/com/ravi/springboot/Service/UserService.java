@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 import com.ravi.springboot.Model.User;
+import com.ravi.springboot.Repository.UserRepository;
 
 @Service
 public class UserService {
@@ -19,6 +20,7 @@ public class UserService {
 	));
 	
 	public List<User> getUsers() {
+		UserRepository.dbconnection();
 		return users;
 	}
 	
