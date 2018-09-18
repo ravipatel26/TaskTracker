@@ -41,30 +41,30 @@ export class UserFormComponent implements OnInit {
       return;
     }
 
-    this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
-      console.log(response);
-      if (!response) {
-        alert("The username provided is not unique!\nEnter another username");
-        return;
-      }
-    },(error)=>{
-      console.log(error);
-      return;
-    })
-
     if (this.registerForm.controls.confirmationPassword.value !== this.registerForm.controls.password.value) {
       alert("Passwords don't match!\n" + this.registerForm.controls.confirmationPassword.value + "\n" + this.registerForm.controls.password);
       return;
     }
 
-    if (this.user.id == undefined) {
-      this._userService.createUser(this.user).subscribe((data)=>{
-        this._router.navigate(["/"]);
-        console.log(data);
+    if (this.user.id == undefined) { // create user
+      this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
+        if (response) {
+          this._userService.createUser(this.user).subscribe((data)=>{
+            this._router.navigate(["/"]);
+            console.log(data);
+          },(error)=>{
+            console.log(error);
+          })
+        } else {
+          alert("Username is not unique!\nPlease provide a valid username");
+          return;
+        }
       },(error)=>{
         console.log(error);
+        return;
       })
-    } else {
+
+    } else { // edit user
       this._userService.editUser(this.user, this.user.id).subscribe((data)=>{
         this._router.navigate(["/"]);
         console.log(data);
@@ -84,14 +84,14 @@ export class UserFormComponent implements OnInit {
     });
   }
 
- findInvalidControls() {
+  findInvalidControls() {
     const invalid = [];
     const controls = this.registerForm.controls;
     for (const name in controls) {
-        if (controls[name].invalid) {
-            invalid.push(name);
-        }
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
     }
     return invalid;
-}
+  }
 }
