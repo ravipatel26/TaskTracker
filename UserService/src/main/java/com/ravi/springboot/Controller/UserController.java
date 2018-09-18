@@ -46,4 +46,8 @@ public class UserController {
     	userService.deleteUser(id);
 	}
     
+    @GetMapping("/isUniqueUsername/{username}")
+    public boolean isUniqueUsername(@PathVariable("username") String username) {
+    	return userService.isUniqueUsername(username);
+    }
 }

@@ -25,7 +25,7 @@ export class UserService {
   }
 
   getUser(id:Number) {
-    return this._http.get(this.baseUrl + '/getUser/' + id , this.options)
+    return this._http.get(this.baseUrl + '/getUser/' + id, this.options)
                      .pipe(
                        map((response:Response)=>response.json()),
                        catchError(this.errorHandler)
@@ -52,6 +52,14 @@ export class UserService {
     return this._http.post(this.baseUrl + '/editUser/' + id, JSON.stringify(user), this.options)
                      .pipe(
                        map((response:Response)=>response),
+                       catchError(this.errorHandler)
+                      );
+  }
+
+  isUniqueUsername(username:String) {
+    return this._http.get(this.baseUrl + '/isUniqueUsername/' + username, this.options)
+                     .pipe(
+                       map((response:Response)=>response.json()),
                        catchError(this.errorHandler)
                       );
   }
