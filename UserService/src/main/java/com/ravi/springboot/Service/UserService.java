@@ -1,8 +1,7 @@
 package com.ravi.springboot.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,13 +12,14 @@ import com.ravi.springboot.Repository.UserRepository;
 @Service
 public class UserService {
 
-	private List<User> users = new ArrayList<User>(Arrays.asList(
-			new User(2, "Ravi", "Patel", "ravster", "redson", new Date()),
-			new User(3, "Bruce", "Wayne", "batman", "gotham", new Date())
-	));
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 	private final String GET_USERS = "select * from user";
 	private final String GET_USER_BY_ID = "select * from user where id=%d";
-	
+	private final String CREATE_USER = "insert into user (firstname,lastName,dateOfBirth,username,password) values ('%s','%s','%s','%s','%s');";
+	private final String EDIT_USER = "update user set firstname='%s', lastName='%s', dateOfBirth='%s', password='%s' where id=%d";
+	private final String DELETE_USER = "delete from user where id='%d'";
+			
 	public List<User> getUsers() {
 		List<User> users = UserRepository.executeRetrieveQuery(GET_USERS);
 		return users;
@@ -32,20 +32,18 @@ public class UserService {
 	}
 	
 	public void createUser(User user) {
-		users.add(user);
+		String query = String.format(CREATE_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getUsername(),user.getPassword());
+		UserRepository.executeUpdateQuery(query);
 	}
 	
 	public void editUser(int id, User user) {
-		for (User u : users) {
-			if (u.getId() == id) {
-				users.set(users.indexOf(u), user); // TODO: set everything except id and username
-				return;
-			}
-		}
+		String query = String.format(EDIT_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getPassword(),id);
+		UserRepository.executeUpdateQuery(query);
 	}
 	
 	public void deleteUser(int id) {
-		users.removeIf(u -> u.getId() == id);
+		String query = String.format(DELETE_USER, id);
+		UserRepository.executeUpdateQuery(query);
 	}
 	
 	public boolean isUniqueUsername(String username) {
