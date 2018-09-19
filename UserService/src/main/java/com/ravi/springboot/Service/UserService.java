@@ -15,12 +15,13 @@ import com.ravi.springboot.Repository.UserRepository;
 public class UserService {
 
 	private List<User> users = new ArrayList<User>(Arrays.asList(
-			new User(1, "Ravi", "Patel", "ravster", "redson", new Date()),
-			new User(2, "Bruce", "Wayne", "batman", "gotham", new Date())
+			new User(2, "Ravi", "Patel", "ravster", "redson", new Date()),
+			new User(3, "Bruce", "Wayne", "batman", "gotham", new Date())
 	));
+	private final String GET_USERS = "select * from user";
 	
 	public List<User> getUsers() {
-		UserRepository.dbconnection();
+		List<User> users = UserRepository.executeQuery(GET_USERS);
 		return users;
 	}
 	
