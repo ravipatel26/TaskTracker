@@ -12,16 +12,13 @@ public class UserRepository {
 	private static String username = "root";
 	private static String password = "root";
 	
-	public static List<User> executeQuery(String query) 
+	public static List<User> executeRetrieveQuery(String query) 
 	{
 		System.out.println("Connecting database...");
-
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-			
 		    System.out.println("Database connected!");
 		    Statement statement = connection.createStatement();
 		    ResultSet resultSet = statement.executeQuery(query);
-		    
 		    return convertResultSetToUserList(resultSet);
 		} catch (SQLException e) {
 		    throw new IllegalStateException("Cannot connect the database!", e);
@@ -31,9 +28,8 @@ public class UserRepository {
 	private static List<User> convertResultSetToUserList(ResultSet rs) {
 		List<User> users = new ArrayList<User>();
 		
-		if (rs == null) {
+		if (rs == null)
 			return users;
-		}
 		
 		try {
 			while (rs.next()) {

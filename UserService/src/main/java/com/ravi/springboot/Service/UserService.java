@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -19,18 +18,17 @@ public class UserService {
 			new User(3, "Bruce", "Wayne", "batman", "gotham", new Date())
 	));
 	private final String GET_USERS = "select * from user";
+	private final String GET_USER_BY_ID = "select * from user where id=%d";
 	
 	public List<User> getUsers() {
-		List<User> users = UserRepository.executeQuery(GET_USERS);
+		List<User> users = UserRepository.executeRetrieveQuery(GET_USERS);
 		return users;
 	}
 	
 	public User getUser(int id) {
-		try {
-			return users.stream().filter(u -> u.getId() == id).findFirst().get();
-		} catch (NoSuchElementException e) {
-			return null;
-		}
+		String query = String.format(GET_USER_BY_ID, id);
+		List<User> user = UserRepository.executeRetrieveQuery(query);
+		return user.get(0);
 	}
 	
 	public void createUser(User user) {
@@ -51,6 +49,7 @@ public class UserService {
 	}
 	
 	public boolean isUniqueUsername(String username) {
+		List<User> users = UserRepository.executeRetrieveQuery(GET_USERS);
 		for (User u : users) {
 			if (u.getUsername().equals(username)) {
 				return false;
