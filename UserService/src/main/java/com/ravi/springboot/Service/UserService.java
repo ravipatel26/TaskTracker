@@ -13,6 +13,7 @@ import com.ravi.springboot.Repository.UserRepository;
 public class UserService {
 
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private UserRepository userRepository = new UserRepository();
 
 	private final String GET_USERS = "select * from user";
 	private final String GET_USER_BY_ID = "select * from user where id=%d";
@@ -21,33 +22,33 @@ public class UserService {
 	private final String DELETE_USER = "delete from user where id='%d'";
 			
 	public List<User> getUsers() {
-		List<User> users = UserRepository.executeRetrieveQuery(GET_USERS);
+		List<User> users = userRepository.executeRetrieveQuery(GET_USERS);
 		return users;
 	}
 	
 	public User getUser(int id) {
 		String query = String.format(GET_USER_BY_ID, id);
-		List<User> user = UserRepository.executeRetrieveQuery(query);
+		List<User> user = userRepository.executeRetrieveQuery(query);
 		return user.get(0);
 	}
 	
-	public void createUser(User user) {
+	public int createUser(User user) {
 		String query = String.format(CREATE_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getUsername(),user.getPassword());
-		UserRepository.executeUpdateQuery(query);
+		return userRepository.executeUpdateQuery(query);
 	}
 	
-	public void editUser(int id, User user) {
+	public int editUser(int id, User user) {
 		String query = String.format(EDIT_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getPassword(),id);
-		UserRepository.executeUpdateQuery(query);
+		return userRepository.executeUpdateQuery(query);
 	}
 	
-	public void deleteUser(int id) {
+	public int deleteUser(int id) {
 		String query = String.format(DELETE_USER, id);
-		UserRepository.executeUpdateQuery(query);
+		return userRepository.executeUpdateQuery(query);
 	}
 	
 	public boolean isUniqueUsername(String username) {
-		List<User> users = UserRepository.executeRetrieveQuery(GET_USERS);
+		List<User> users = userRepository.executeRetrieveQuery(GET_USERS);
 		for (User u : users) {
 			if (u.getUsername().equals(username)) {
 				return false;

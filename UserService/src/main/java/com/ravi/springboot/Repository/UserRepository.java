@@ -8,11 +8,11 @@ import com.ravi.springboot.Model.User;
 
 public class UserRepository {
 
-	private static String url = "jdbc:mysql://localhost:3306/tasktrackerdb?autoReconnect=true&useSSL=false";
-	private static String username = "root";
-	private static String password = "root";
+	private String url = "jdbc:mysql://localhost:3306/tasktrackerdb?autoReconnect=true&useSSL=false";
+	private String username = "root";
+	private String password = "root";
 	
-	public static List<User> executeRetrieveQuery(String query) 
+	public List<User> executeRetrieveQuery(String query) 
 	{
 		System.out.println("Connecting database...");
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -25,7 +25,7 @@ public class UserRepository {
 		}
 	}
 	
-	public static int executeUpdateQuery(String query) 
+	public int executeUpdateQuery(String query) 
 	{
 		System.out.println("Connecting database...");
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
