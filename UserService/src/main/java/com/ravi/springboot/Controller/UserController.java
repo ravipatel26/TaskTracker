@@ -15,7 +15,7 @@ import com.ravi.springboot.Model.User;
 import com.ravi.springboot.Service.UserService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="*")
 public class UserController {
 
 	@Autowired
