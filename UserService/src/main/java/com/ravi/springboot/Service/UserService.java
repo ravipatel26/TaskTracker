@@ -27,23 +27,30 @@ public class UserService {
 	}
 	
 	public User getUser(int id) {
+		if (id < 1)
+			return null;
 		String query = String.format(GET_USER_BY_ID, id);
 		List<User> users = userRepository.executeRetrieveQuery(query);
-		System.out.println(users.size());
 		return users.size() > 0 ? users.get(0) : null;
 	}
 	
 	public int createUser(User user) {
+		if (user == null || isNullUserFields(user))
+			return 0;
 		String query = String.format(CREATE_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getUsername(),user.getPassword());
 		return userRepository.executeUpdateQuery(query);
 	}
 	
 	public int editUser(int id, User user) {
+		if (id < 1 || user == null)
+			return 0;
 		String query = String.format(EDIT_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getPassword(),id);
 		return userRepository.executeUpdateQuery(query);
 	}
 	
 	public int deleteUser(int id) {
+		if (id < 1)
+			return 0;
 		String query = String.format(DELETE_USER, id);
 		return userRepository.executeUpdateQuery(query);
 	}
@@ -59,5 +66,13 @@ public class UserService {
 			}
 		}
 		return true;
+	}
+	
+	private boolean isNullUserFields(User user) {
+		return user.getFirstName() == null ||
+			   user.getLastName() == null ||
+			   user.getUsername() == null ||
+			   user.getPassword() == null ||
+			   user.getDateOfBirth() == null;
 	}
 }

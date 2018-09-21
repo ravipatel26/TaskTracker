@@ -74,9 +74,9 @@ public class User {
 	
 	@Override
 	public boolean equals(Object obj) {
-//		if (obj == null || !(obj instanceof User))
-//            return false; 
-		
+		if (obj == null || !(obj instanceof User))
+            return false; 
+
 		User user = (User) obj;
 		return this.id == user.id &&
 			   this.firstName.equals(user.firstName) &&
