@@ -71,4 +71,18 @@ public class User {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+//		if (obj == null || !(obj instanceof User))
+//            return false; 
+		
+		User user = (User) obj;
+		return this.id == user.id &&
+			   this.firstName.equals(user.firstName) &&
+			   this.lastName.equals(user.lastName) &&
+			   this.username.equals(user.username) &&
+			   this.password.equals(user.password) &&
+			   this.dateOfBirth.equals(user.dateOfBirth);
+	}
 }

@@ -28,8 +28,9 @@ public class UserService {
 	
 	public User getUser(int id) {
 		String query = String.format(GET_USER_BY_ID, id);
-		List<User> user = userRepository.executeRetrieveQuery(query);
-		return user.get(0);
+		List<User> users = userRepository.executeRetrieveQuery(query);
+		System.out.println(users.size());
+		return users.size() > 0 ? users.get(0) : null;
 	}
 	
 	public int createUser(User user) {
@@ -48,6 +49,9 @@ public class UserService {
 	}
 	
 	public boolean isUniqueUsername(String username) {
+		if (username == null || username.equals(""))
+			return false;
+			
 		List<User> users = userRepository.executeRetrieveQuery(GET_USERS);
 		for (User u : users) {
 			if (u.getUsername().equals(username)) {
