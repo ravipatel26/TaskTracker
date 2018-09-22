@@ -15,8 +15,8 @@ import { AuthGuard } from './_guards/auth.guard'
 const appRoutes:Routes = [
   { path:'login', component:LoginComponent },
   { path:'', component:AllUsersComponent, canActivate: [AuthGuard] },
-  { path:'user', component:UserFormComponent },
-  { path:'**', redirectTo:'' }
+  { path:'user', component:UserFormComponent, canActivate: [AuthGuard] },
+  { path:'**', redirectTo:'login' }
 ]
 
 @NgModule({
@@ -33,7 +33,7 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService, AuthenticationService],
+  providers: [AuthGuard, UserService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

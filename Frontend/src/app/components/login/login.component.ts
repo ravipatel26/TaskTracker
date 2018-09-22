@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   private loginForm: FormGroup;
   private submitted = false;
   private loading = false;
-  private returnUrl: string;
 
   constructor(private _userService:UserService, private _router:Router, private route: ActivatedRoute,
               private formBuilder: FormBuilder, private authenticationService: AuthenticationService) { }
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit {
 
     // reset login status
     this.authenticationService.logout();
-    this.returnUrl = '/';
   }
 
   get form() {
@@ -36,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
- 
+
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -45,6 +43,11 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     if (this.loginForm.controls.username.value === "ravi" && this.loginForm.controls.password.value === "password") {
       this._router.navigate(["/"]);
+      // make routing dynamic -> admin vs user
+      // return a user
+    } else {
+      alert('Invalid username/password');
+      this.loading = false;
     }
         // this.authenticationService.login(this.f.username.value, this.f.password.value)
         //     .pipe(first())
