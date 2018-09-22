@@ -13,6 +13,7 @@ import com.ravi.springboot.Repository.UserRepository;
 public class UserService {
 
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private UserRepository userRepository = new UserRepository();
 
 	private final String GET_USERS = "select * from user";
 	private final String GET_USER_BY_ID = "select * from user where id=%d";
@@ -21,38 +22,58 @@ public class UserService {
 	private final String DELETE_USER = "delete from user where id='%d'";
 			
 	public List<User> getUsers() {
-		List<User> users = UserRepository.executeRetrieveQuery(GET_USERS);
+		List<User> users = userRepository.executeRetrieveQuery(GET_USERS);
 		return users;
 	}
 	
 	public User getUser(int id) {
+		if (id < 1)
+			return null;
 		String query = String.format(GET_USER_BY_ID, id);
-		List<User> user = UserRepository.executeRetrieveQuery(query);
-		return user.get(0);
+		List<User> users = userRepository.executeRetrieveQuery(query);
+		return users.size() > 0 ? users.get(0) : null;
 	}
 	
-	public void createUser(User user) {
+	public int createUser(User user) {
+		if (user == null || doesUserHaveNullFields(user))
+			return 0;
 		String query = String.format(CREATE_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getUsername(),user.getPassword());
-		UserRepository.executeUpdateQuery(query);
+		return userRepository.executeUpdateQuery(query);
 	}
 	
-	public void editUser(int id, User user) {
+	public int editUser(int id, User user) {
+		if (id < 1 || user == null || doesUserHaveNullFields(user))
+			return 0;
 		String query = String.format(EDIT_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getPassword(),id);
-		UserRepository.executeUpdateQuery(query);
+		return userRepository.executeUpdateQuery(query);
 	}
 	
-	public void deleteUser(int id) {
+	public int deleteUser(int id) {
+		if (id < 1)
+			return 0;
 		String query = String.format(DELETE_USER, id);
-		UserRepository.executeUpdateQuery(query);
+		// TODO: call task service to delete all tasks associated to user
+		return userRepository.executeUpdateQuery(query);
 	}
 	
 	public boolean isUniqueUsername(String username) {
-		List<User> users = UserRepository.executeRetrieveQuery(GET_USERS);
+		if (username == null || username.equals(""))
+			return false;
+			
+		List<User> users = userRepository.executeRetrieveQuery(GET_USERS);
 		for (User u : users) {
 			if (u.getUsername().equals(username)) {
 				return false;
 			}
 		}
 		return true;
+	}
+	
+	private boolean doesUserHaveNullFields(User user) {
+		return user.getFirstName() == null ||
+			   user.getLastName() == null ||
+			   user.getUsername() == null ||
+			   user.getPassword() == null ||
+			   user.getDateOfBirth() == null;
 	}
 }
