@@ -46,6 +46,7 @@ export class UserFormComponent implements OnInit {
       return;
     }
 
+    // TODO: refactor this into 2 functions
     if (this.user.id == undefined) { // create user
       this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
         if (response) {
