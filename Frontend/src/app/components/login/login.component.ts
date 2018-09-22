@@ -43,6 +43,8 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     if (this.loginForm.controls.username.value === "ravi" && this.loginForm.controls.password.value === "password") {
       this._router.navigate(["/"]);
+
+      localStorage.setItem('currentUser', JSON.stringify(this.loginForm.controls.username.value));
       // make routing dynamic -> admin vs user
       // return a user
     } else {

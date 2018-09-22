@@ -1,5 +1,6 @@
 <div *ngIf="users?.length > 0; else noUserTemplate">
   <div class="container">
+    <h2>List of Users</h2>
     <table class="table table-stripe">
       <thead>
         <th>First Name</th>
@@ -25,9 +26,14 @@
 </div>
 
 <ng-template #noUserTemplate>
-  <p>
-    There are currently no registered users. Click <a routerLink="" (click)="createUser()">here</a> to add a new user.
-  </p>
+  <div class="container">
+    <h2>List of Users</h2>
+    <p>
+      There are currently no registered users. Click <a routerLink="" (click)="createUser()">here</a> to add a new user.
+    </p>
+  </div>
 </ng-template>
 
-<p><a [routerLink]="['/login']">Logout</a></p>
+<div class="container">
+  <p><a [routerLink]="['/login']">Logout</a></p>
+</div>
