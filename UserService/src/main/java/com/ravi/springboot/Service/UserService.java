@@ -35,14 +35,14 @@ public class UserService {
 	}
 	
 	public int createUser(User user) {
-		if (user == null || isNullUserFields(user))
+		if (user == null || doesUserHaveNullFields(user))
 			return 0;
 		String query = String.format(CREATE_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getUsername(),user.getPassword());
 		return userRepository.executeUpdateQuery(query);
 	}
 	
 	public int editUser(int id, User user) {
-		if (id < 1 || user == null)
+		if (id < 1 || user == null || doesUserHaveNullFields(user))
 			return 0;
 		String query = String.format(EDIT_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getPassword(),id);
 		return userRepository.executeUpdateQuery(query);
@@ -52,6 +52,7 @@ public class UserService {
 		if (id < 1)
 			return 0;
 		String query = String.format(DELETE_USER, id);
+		// TODO: call task service to delete all tasks associated to user
 		return userRepository.executeUpdateQuery(query);
 	}
 	
@@ -68,7 +69,7 @@ public class UserService {
 		return true;
 	}
 	
-	private boolean isNullUserFields(User user) {
+	private boolean doesUserHaveNullFields(User user) {
 		return user.getFirstName() == null ||
 			   user.getLastName() == null ||
 			   user.getUsername() == null ||
