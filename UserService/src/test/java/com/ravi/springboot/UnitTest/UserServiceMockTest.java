@@ -1,4 +1,4 @@
-package com.ravi.springboot.unittest;
+package com.ravi.springboot.UnitTest;
 
 import static org.junit.Assert.*;
 

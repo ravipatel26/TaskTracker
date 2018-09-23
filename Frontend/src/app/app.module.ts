@@ -7,18 +7,24 @@ import { AppComponent } from './app.component';
 import { AllUsersComponent } from './components/all-users/all-users.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './_guards/auth.guard'
 
 const appRoutes:Routes = [
-  { path:'', component:AllUsersComponent },
-  { path:'user', component:UserFormComponent },
+  { path:'login', component:LoginComponent },
+  { path:'', component:AllUsersComponent, canActivate: [AuthGuard] },
+  { path:'user', component:UserFormComponent, canActivate: [AuthGuard] },
+  { path:'**', redirectTo:'login' }
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     AllUsersComponent,
-    UserFormComponent
+    UserFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,7 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService],
+  providers: [AuthGuard, UserService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
