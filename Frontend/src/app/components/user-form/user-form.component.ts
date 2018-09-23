@@ -57,7 +57,7 @@ export class UserFormComponent implements OnInit {
     console.log(user);
     this._userService.deleteUser(user.id).subscribe((data) => {
       console.log(data);
-      this._router.navigate(["/"]);
+      this._router.navigate(["/admin/userList"]);
     }, (error) => {
       console.log(error);
     });
@@ -76,9 +76,10 @@ export class UserFormComponent implements OnInit {
 
   createUser() {
     this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
+      console.log(response);
       if (response) {
         this._userService.createUser(this.user).subscribe((data)=>{
-          this._router.navigate(["/"]);
+          this._router.navigate(["/admin/userList"]);
           console.log(data);
         },(error)=>{
           console.log(error);
@@ -95,7 +96,7 @@ export class UserFormComponent implements OnInit {
 
   editUser() {
     this._userService.editUser(this.user, this.user.id).subscribe((data)=>{
-      this._router.navigate(["/"]);
+      this._router.navigate(["/admin/userList"]);
       console.log(data);
     },(error)=>{
       console.log(error);

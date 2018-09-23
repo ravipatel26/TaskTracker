@@ -12,16 +12,18 @@ public class User {
 	private String password;
     @JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateOfBirth;
+    private String role;
 
     public User() {}
 
-	public User(int id, String firstName, String lastName, String username, String password, Date dateOfBirth) {
+	public User(int id, String firstName, String lastName, String username, String password, Date dateOfBirth, String role) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.dateOfBirth = dateOfBirth;
+		this.role = role;
 	}
 
 	public int getId() {
@@ -72,6 +74,14 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof User))
@@ -83,6 +93,7 @@ public class User {
 			   this.lastName.equals(user.lastName) &&
 			   this.username.equals(user.username) &&
 			   this.password.equals(user.password) &&
-			   this.dateOfBirth.equals(user.dateOfBirth);
+			   this.dateOfBirth.equals(user.dateOfBirth) &&
+			   this.role.equals(user.role);
 	}
 }

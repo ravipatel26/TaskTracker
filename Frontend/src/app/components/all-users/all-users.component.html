@@ -22,6 +22,7 @@
       </tbody>
     </table>
     <button class="btn btn-primary" (click)="createUser()">Add User</button>
+    <button class="btn btn-link" [routerLink]="['/login']">Logout</button>
   </div>
 </div>
 
@@ -31,9 +32,6 @@
     <p>
       There are currently no registered users. Click <a routerLink="" (click)="createUser()">here</a> to add a new user.
     </p>
+    <p><a [routerLink]="['/login']">Logout</a></p>
   </div>
 </ng-template>
-
-<div class="container">
-  <button class="btn btn-link" [routerLink]="['/login']">Logout</button>
-</div>

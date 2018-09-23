@@ -44,7 +44,10 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authenticationService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).subscribe((user:User)=>{
       if (user !== null) {
-        this._router.navigate(["/"]);
+        if (user.role === "admin")
+          this._router.navigate(["/admin/userList"]);
+        else
+          this._router.navigate(["/user/taskList"]);
         localStorage.setItem('currentUser', JSON.stringify(user));
       }        
       else {

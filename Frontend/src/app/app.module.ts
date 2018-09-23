@@ -10,12 +10,17 @@ import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
-import { AuthGuard } from './_guards/auth.guard'
+import { AuthGuard } from './_guards/auth.guard';
+import { UserGuard } from './_guards/user.guard';
+import { TaskListComponent } from './components/task-list/task-list.component';
 
 const appRoutes:Routes = [
   { path:'login', component:LoginComponent },
-  { path:'', component:AllUsersComponent, canActivate: [AuthGuard] },
-  { path:'user', component:UserFormComponent, canActivate: [AuthGuard] },
+  { path:'admin/userList', component:AllUsersComponent, canActivate: [AuthGuard] },
+  { path:'admin/userForm', component:UserFormComponent, canActivate: [AuthGuard] },
+  { path:'user/taskList', component:TaskListComponent, canActivate: [UserGuard] },
+  { path:'admin', redirectTo:'admin/userList' },
+  { path:'user', redirectTo:'user/taskList' },
   { path:'**', redirectTo:'login' }
 ]
 
@@ -24,7 +29,8 @@ const appRoutes:Routes = [
     AppComponent,
     AllUsersComponent,
     UserFormComponent,
-    LoginComponent
+    LoginComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,7 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthGuard, UserService, AuthenticationService],
+  providers: [AuthGuard, UserGuard, UserService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

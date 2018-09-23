@@ -32,12 +32,12 @@ export class AllUsersComponent implements OnInit {
 
   editUser(user) {
     this._userService.setter(user);
-    this._router.navigate(['/user']);
+    this._router.navigate(['/admin/userForm']);
   }
 
   createUser() {
     let user = new User();
     this._userService.setter(user);
-    this._router.navigate(['/user']);
+    this._router.navigate(['/admin/userForm']);
   }
 }
