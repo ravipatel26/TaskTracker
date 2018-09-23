@@ -30,13 +30,13 @@ public class UserServiceMockTest {
 	UserService userService;
 	
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private final String GET_USERS = "select * from user";
+	private final String GET_USERS = "select * from user where role='user'";
 	private final String GET_USER_BY_ID = "select * from user where id=%d";
-	private final String CREATE_USER = "insert into user (firstname,lastName,dateOfBirth,username,password) values ('%s','%s','%s','%s','%s');";
+	private final String CREATE_USER = "insert into user (firstname,lastName,dateOfBirth,username,password,role) values ('%s','%s','%s','%s','%s','user');";
 	private final String EDIT_USER = "update user set firstname='%s', lastName='%s', dateOfBirth='%s', password='%s' where id=%d";
-	private final String DELETE_USER = "delete from user where id='%d'";
-	private User user1 = new User(1, "bruce", "wayne", "batman", "password", new Date());
-	private User user2 = new User(2, "matt", "murdock", "daredevil", "password", new Date());
+	private final String DELETE_USER = "delete from user where id='%d' and role='user'";
+	private User user1 = new User(1, "bruce", "wayne", "batman", "password", new Date(), "user");
+	private User user2 = new User(2, "matt", "murdock", "daredevil", "password", new Date(), "user");
 	
 	@Test
 	public void testGetAllUsersWithNoUsersInDatabase() {

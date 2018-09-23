@@ -48,7 +48,8 @@ public class UserRepository {
 			while (rs.next()) {
 				users.add(new User(rs.getInt("id"), rs.getString("firstName"),
 								   rs.getString("lastName"), rs.getString("username"),
-								   rs.getString("password"), rs.getDate("dateOfBirth")));
+								   rs.getString("password"), rs.getDate("dateOfBirth"),
+								   rs.getString("role")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

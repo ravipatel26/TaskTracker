@@ -32,7 +32,7 @@ public class LoginServiceMockTest {
 	private final String GET_USER_BY_CREDENTIALS = "select * from user where username='%s' and password='%s'";
 	private final String USERNAME_MAP_KEY = "username";
 	private final String PASSWORD_MAP_KEY = "password";
-	private User user1 = new User(1, "bruce", "wayne", "admin", "password", new Date());
+	private User user1 = new User(1, "bruce", "wayne", "admin", "password", new Date(), "user");
 	Map<String, Object> validCredentials = new HashMap<String, Object>();
 	Map<String, Object> nullCredentials = new HashMap<String, Object>();
 	Map<String, Object> invalidCredentials = new HashMap<String, Object>();
