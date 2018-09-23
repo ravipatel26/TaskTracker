@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         if (user.role === "admin")
           this._router.navigate(["/admin/userList"]);
         else
-          this._router.navigate(["/user/tasks"]);
+          this._router.navigate(["/user/taskList"]);
         localStorage.setItem('currentUser', JSON.stringify(user));
       }        
       else {

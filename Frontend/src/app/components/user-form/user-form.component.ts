@@ -76,6 +76,7 @@ export class UserFormComponent implements OnInit {
 
   createUser() {
     this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
+      console.log(response);
       if (response) {
         this._userService.createUser(this.user).subscribe((data)=>{
           this._router.navigate(["/admin/userList"]);

@@ -16,6 +16,7 @@ public class UserService {
 	private UserRepository userRepository = new UserRepository();
 
 	private final String GET_USERS = "select * from user where role='user'";
+	private final String GET_ALL_USERS = "select * from user";
 	private final String GET_USER_BY_ID = "select * from user where id=%d";
 	private final String CREATE_USER = "insert into user (firstname,lastName,dateOfBirth,username,password,role) values ('%s','%s','%s','%s','%s','user');";
 	private final String EDIT_USER = "update user set firstname='%s', lastName='%s', dateOfBirth='%s', password='%s' where id=%d";
@@ -60,7 +61,7 @@ public class UserService {
 		if (username == null || username.equals(""))
 			return false;
 			
-		List<User> users = userRepository.executeRetrieveQuery(GET_USERS);
+		List<User> users = userRepository.executeRetrieveQuery(GET_ALL_USERS);
 		for (User u : users) {
 			if (u.getUsername().equals(username)) {
 				return false;
