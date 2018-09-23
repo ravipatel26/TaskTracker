@@ -20,7 +20,6 @@ public class LoginController {
 	
 	@PostMapping("/login")
     public User login(@RequestBody Map<String, Object> credentials) {
-		System.out.println(credentials); //TODO: remove this
 		return loginService.login(credentials);
 	}
 }

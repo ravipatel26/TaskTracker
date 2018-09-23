@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -41,25 +42,19 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    if (this.loginForm.controls.username.value === "ravi" && this.loginForm.controls.password.value === "password") {
-      this._router.navigate(["/"]);
-
-      localStorage.setItem('currentUser', JSON.stringify(this.loginForm.controls.username.value));
-      // make routing dynamic -> admin vs user
-      // return a user
-    } else {
-      alert('Invalid username/password');
+    this.authenticationService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).subscribe((user:User)=>{
+      if (user !== null) {
+        this._router.navigate(["/"]);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }        
+      else {
+        alert('Invalid username/password');
+      }
+      console.log(user);
+    },(error)=>{
+      alert('Could not validate username/password');
       this.loading = false;
-    }
-        // this.authenticationService.login(this.f.username.value, this.f.password.value)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.router.navigate([this.returnUrl]);
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+      console.log(error);
+    });
   }
 }

@@ -46,32 +46,10 @@ export class UserFormComponent implements OnInit {
       return;
     }
 
-    // TODO: refactor this into 2 functions
-    if (this.user.id == undefined) { // create user
-      this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
-        if (response) {
-          this._userService.createUser(this.user).subscribe((data)=>{
-            this._router.navigate(["/"]);
-            console.log(data);
-          },(error)=>{
-            console.log(error);
-          })
-        } else {
-          alert("Username is not unique!\nPlease provide a valid username");
-          return;
-        }
-      },(error)=>{
-        console.log(error);
-        return;
-      })
-
-    } else { // edit user
-      this._userService.editUser(this.user, this.user.id).subscribe((data)=>{
-        this._router.navigate(["/"]);
-        console.log(data);
-      },(error)=>{
-        console.log(error);
-      })
+    if (this.user.id === undefined) {
+      this.createUser();
+    } else {
+      this.editUser();
     }
   }
 
@@ -94,5 +72,33 @@ export class UserFormComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+  createUser() {
+    this._userService.isUniqueUsername(this.registerForm.controls.username.value).subscribe((response)=>{
+      if (response) {
+        this._userService.createUser(this.user).subscribe((data)=>{
+          this._router.navigate(["/"]);
+          console.log(data);
+        },(error)=>{
+          console.log(error);
+        })
+      } else {
+        alert("Username is not unique!\nPlease provide a valid username");
+        return;
+      }
+    },(error)=>{
+      console.log(error);
+      return;
+    })
+  }
+
+  editUser() {
+    this._userService.editUser(this.user, this.user.id).subscribe((data)=>{
+      this._router.navigate(["/"]);
+      console.log(data);
+    },(error)=>{
+      console.log(error);
+    })
   }
 }
