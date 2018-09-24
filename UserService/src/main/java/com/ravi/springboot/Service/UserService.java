@@ -1,5 +1,8 @@
 package com.ravi.springboot.Service;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -21,6 +24,7 @@ public class UserService {
 	private final String CREATE_USER = "insert into user (firstname,lastName,dateOfBirth,username,password,role) values ('%s','%s','%s','%s','%s','user');";
 	private final String EDIT_USER = "update user set firstname='%s', lastName='%s', dateOfBirth='%s', password='%s' where id=%d";
 	private final String DELETE_USER = "delete from user where id='%d' and role='user'";
+	private final String TASK_SERVICE_URL = "http://localhost:8081/deleteTask/%d";
 			
 	public List<User> getUsers() {
 		List<User> users = userRepository.executeRetrieveQuery(GET_USERS);
@@ -52,8 +56,11 @@ public class UserService {
 	public int deleteUser(int id) {
 		if (id < 1)
 			return 0;
+		
+		if (!isDeleteUserTasksSuccessful(id))
+			return 0;
+		
 		String query = String.format(DELETE_USER, id);
-		// TODO: call task service to delete all tasks associated to user
 		return userRepository.executeUpdateQuery(query);
 	}
 	
@@ -76,5 +83,21 @@ public class UserService {
 			   user.getUsername() == null ||
 			   user.getPassword() == null ||
 			   user.getDateOfBirth() == null;
+	}
+	
+	private boolean isDeleteUserTasksSuccessful(int userId) {
+		try {
+			URL url = new URL(String.format(TASK_SERVICE_URL, userId));
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("DELETE");
+			int responseCode = connection.getResponseCode();
+			if (responseCode == -1)
+				return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 }
