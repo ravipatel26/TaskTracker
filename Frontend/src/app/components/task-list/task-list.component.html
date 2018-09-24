@@ -1,3 +1,32 @@
-<p>
-  task-list works!
-</p>
+<div *ngIf="tasks?.length > 0; else noTaskTemplate">
+  <div class="container">
+    <h2>List of Pending Tasks</h2>
+    <table class="table table-stripe">
+      <thead>
+        <th>Tasks</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{task.description}}</td>
+          <td>
+            <button class="btn btn-outline-success btn-sm" (click)="completeTask(task)">Complete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #noTaskTemplate>
+  <div class="container">
+    <h2>List of Pending Tasks</h2>
+    <p>
+      You don't have any tasks pending. Complete the form below to create tasks.
+    </p>
+  </div>
+</ng-template>
+
+<div class="container">
+  <button class="btn btn-link" [routerLink]="['/login']">Logout</button>
+</div>
