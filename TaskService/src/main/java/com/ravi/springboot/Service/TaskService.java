@@ -18,23 +18,23 @@ public class TaskService {
 	private final String COMPLETE_TASK = "update task set taskStatus='complete' where id=%d";
 	private final String DELETE_TASKS = "delete from task where userId=%d";
 			
-	public List<Task> getPendingTasks(int id) {
-		if (id < 1)
+	public List<Task> getPendingTasks(int userId) {
+		if (userId < 1)
 			return new ArrayList<Task>();
-		String query = String.format(GET_TASKS, id);
+		String query = String.format(GET_TASKS, userId);
 		List<Task> tasks = taskRepository.executeRetrieveQuery(query);
 		return tasks;
 	}
 	
 	public int createTask(Task task) {
-		if (task == null || task.getTaskDescription() == null)
+		if (task == null || task.getDescription() == null || task.getUserId() < 1)
 			return 0;
-		String query = String.format(CREATE_TASK, task.getTaskDescription(), task.getUserId());
+		String query = String.format(CREATE_TASK, task.getDescription(), task.getUserId());
 		return taskRepository.executeUpdateQuery(query);
 	}
 	
 	public int completeTask(Task task) {
-		if (task == null)
+		if (task == null || doesTaskHaveInvalidFields(task))
 			return 0;
 		String query = String.format(COMPLETE_TASK, task.getId());
 		return taskRepository.executeUpdateQuery(query);
@@ -45,5 +45,12 @@ public class TaskService {
 			return 0;
 		String query = String.format(DELETE_TASKS, userId);
 		return taskRepository.executeUpdateQuery(query);
+	}
+	
+	private boolean doesTaskHaveInvalidFields(Task task) {
+		return task.getId() < 1 ||
+			   task.getUserId() < 1 ||
+			   task.getStatus() == null ||
+			   task.getDescription() == null;
 	}
 }

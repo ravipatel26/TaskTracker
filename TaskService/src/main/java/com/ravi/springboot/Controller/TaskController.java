@@ -21,9 +21,9 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 	
-	@GetMapping("/getPendingTasks/{id}")
-    public List<Task> getPendingTasks(@PathVariable("id") int id) {
-		return taskService.getPendingTasks(id);
+	@GetMapping("/getPendingTasks/{userId}")
+    public List<Task> getPendingTasks(@PathVariable("userId") int userId) {
+		return taskService.getPendingTasks(userId);
     }
 
     @PostMapping("/createTask")

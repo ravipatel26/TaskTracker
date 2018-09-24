@@ -4,14 +4,14 @@ public class Task {
 
 	private int id;
 	private int userId;
-	private String taskDescription;
+	private String description;
 	private String status;
 
     public Task() {}
 
 	public Task(int id, String taskDescription, String status, int userId) {
 		this.id = id;
-		this.taskDescription = taskDescription;
+		this.description = taskDescription;
 		this.status = status;
 		this.userId = userId;
 	}
@@ -32,12 +32,12 @@ public class Task {
 		this.userId = userId;
 	}
 
-	public String getTaskDescription() {
-		return taskDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setTaskDescription(String taskDescription) {
-		this.taskDescription = taskDescription;
+	public void setDescription(String taskDescription) {
+		this.description = taskDescription;
 	}
 
 	public String getStatus() {
@@ -46,5 +46,17 @@ public class Task {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Task))
+            return false; 
+
+		Task task = (Task) obj;
+		return this.id == task.id &&
+			   this.description.equals(task.description) &&
+			   this.status.equals(task.status) &&
+			   this.userId == task.userId;
 	}
 }
