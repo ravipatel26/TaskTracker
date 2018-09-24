@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
@@ -11,14 +12,34 @@ export class TaskListComponent implements OnInit {
 
   private tasks:Task[];
   private userId:Number;
+  private taskForm: FormGroup;
+  private submitted = false;
 
-  constructor(private _taskService:TaskService) { }
+  constructor(private _taskService:TaskService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     if (localStorage.getItem('currentUser')) {
       this.userId = JSON.parse(localStorage.getItem('currentUser')).id;
       this.updateTaskList();
     }
+
+    this.taskForm = this.formBuilder.group({
+      description: ['', [Validators.required, Validators.maxLength(100)]]
+    });
+  }
+
+  get form() {
+    return this.taskForm.controls;
+  }
+
+  submitTask() {
+    this.submitted = true;
+
+    if (this.taskForm.invalid) {
+      return;
+    }
+
+    //TODO: create task
   }
 
   updateTaskList() {
@@ -31,6 +52,11 @@ export class TaskListComponent implements OnInit {
   }
 
   completeTask(task) {
-    console.log("task: " + task);
+    console.log("task: " + JSON.stringify(task));
+    //TODO: update task
+  }
+
+  createTask() {
+    
   }
 }

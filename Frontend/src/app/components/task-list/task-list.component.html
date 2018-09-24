@@ -4,7 +4,7 @@
     <table class="table table-stripe">
       <thead>
         <th>Tasks</th>
-        <th></th>
+        <th>Action</th>
       </thead>
       <tbody>
         <tr *ngFor="let task of tasks">
@@ -28,5 +28,21 @@
 </ng-template>
 
 <div class="container">
+  <h2>Add a Task</h2>
+  <form [formGroup]="taskForm" (ngSubmit)="submitTask()">
+    <label for="description">Task Description</label>
+    <div class="form group">
+      <div class="input-group">
+        <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
+        <span class="input-group-btn">
+          <input type="submit" value="Add" class="btn btn-primary">
+        </span>
+        <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
+          <div *ngIf="form.description.errors.required">Task description is required</div>
+          <div *ngIf="form.description.errors.maxlength">Task description must be less than 100 characters</div>
+        </div>
+      </div>
+    </div>
+  </form>
   <button class="btn btn-link" [routerLink]="['/login']">Logout</button>
 </div>
