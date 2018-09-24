@@ -13,3 +13,14 @@ CREATE TABLE `tasktrackerdb`.`user` (
 
 INSERT INTO tasktrackerdb.user (firstname,lastName,dateOfBirth, username, password, role) VALUES('Ravi','Patel','1992-10-26', 'admin', 'password', 'admin');
 
+CREATE TABLE `tasktrackerdb`.`task` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `userId` INT NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `dateOfBirth` DATE NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  role` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  FOREIGN KEY (userId) REFERENCES `tasktrackerdb`.`user`(id)  ;
