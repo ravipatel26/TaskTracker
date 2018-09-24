@@ -19,7 +19,7 @@ public class TaskRepository {
 		    System.out.println("Database connected!");
 		    Statement statement = connection.createStatement();
 		    ResultSet resultSet = statement.executeQuery(query);
-		    return convertResultSetToUserList(resultSet);
+		    return convertResultSetToTaskList(resultSet);
 		} catch (SQLException e) {
 		    throw new IllegalStateException("Cannot connect the database!", e);
 		}
@@ -38,7 +38,7 @@ public class TaskRepository {
 		}
 	}
 	
-	private static List<Task> convertResultSetToUserList(ResultSet rs) {
+	private static List<Task> convertResultSetToTaskList(ResultSet rs) {
 		List<Task> tasks = new ArrayList<Task>();
 		
 		if (rs == null)

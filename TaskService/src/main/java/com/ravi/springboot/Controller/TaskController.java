@@ -1,6 +1,5 @@
 package com.ravi.springboot.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +28,16 @@ public class TaskController {
 
     @PostMapping("/createTask")
     public void createTask(@RequestBody Task task) {
-		//userService.createUser(user);
+    	taskService.createTask(task);
 	}
     
-    @PostMapping("/completeTask/{id}")
-    public void editUser(@RequestBody Task task, @PathVariable("id") int id) {
-    	//userService.editUser(id, user);
+    @PostMapping("/completeTask")
+    public void completeTask(@RequestBody Task task) {
+    	taskService.completeTask(task);
 	}
     
-    @DeleteMapping("/deleteTask/{id}")
-    public void deleteTask(@PathVariable("id") int id) {
-    	//userService.deleteUser(id);
+    @DeleteMapping("/deleteTask/{userId}")
+    public void deleteTask(@PathVariable("userId") int userId) {
+    	taskService.deleteTasks(userId);
 	}
 }
