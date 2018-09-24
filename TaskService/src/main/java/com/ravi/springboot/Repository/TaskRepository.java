@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.ravi.springboot.Model.Task;
 
-public class UserRepository {
+public class TaskRepository {
 
 	private String url = "jdbc:mysql://localhost:3306/tasktrackerdb?autoReconnect=true&useSSL=false";
 	private String username = "root";
@@ -39,20 +39,20 @@ public class UserRepository {
 	}
 	
 	private static List<Task> convertResultSetToUserList(ResultSet rs) {
-		List<Task> users = new ArrayList<Task>();
+		List<Task> tasks = new ArrayList<Task>();
 		
 		if (rs == null)
-			return users;
+			return tasks;
 		
 		try {
 			while (rs.next()) {
-				users.add(new Task(rs.getInt("id"), rs.getString("taskDescription"),
-								   rs.getString("status"), rs.getInt("userId")));
+				tasks.add(new Task(rs.getInt("id"), rs.getString("taskDescription"),
+								   rs.getString("taskStatus"), rs.getInt("userId")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return users;
+		return tasks;
 	}
 }

@@ -13,42 +13,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ravi.springboot.Model.Task;
-//import com.ravi.springboot.Service.UserService;
+import com.ravi.springboot.Service.TaskService;
 
 @RestController
 @CrossOrigin(origins="*")
 public class TaskController {
 
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private TaskService taskService;
 	
-	@GetMapping("/getPendingTasks")
-    public List<Task> getPendingTasks() {
-		return new ArrayList<Task>();
+	@GetMapping("/getPendingTasks/{id}")
+    public List<Task> getPendingTasks(@PathVariable("id") int id) {
+		return taskService.getPendingTasks(id);
     }
-	
-//    @GetMapping("/getUser/{id}")
-//    public Task getUser(@PathVariable("id") int id) {
-//		return userService.getUser(id);
-//    }
-//    
-//    @PostMapping("/createUser")
-//    public void creatUser(@RequestBody Task user) {
-//		userService.createUser(user);
-//	}
-//    
-//    @PostMapping("/editUser/{id}")
-//    public void editUser(@RequestBody Task user, @PathVariable("id") int id) {
-//    	userService.editUser(id, user);
-//	}
-//    
-//    @DeleteMapping("/deleteUser/{id}")
-//    public void deletetUser(@PathVariable("id") int id) {
-//    	userService.deleteUser(id);
-//	}
-//    
-//    @GetMapping("/isUniqueUsername/{username}")
-//    public boolean isUniqueUsername(@PathVariable("username") String username) {
-//    	return userService.isUniqueUsername(username);
-//    }
+
+    @PostMapping("/createTask")
+    public void createTask(@RequestBody Task task) {
+		//userService.createUser(user);
+	}
+    
+    @PostMapping("/completeTask/{id}")
+    public void editUser(@RequestBody Task task, @PathVariable("id") int id) {
+    	//userService.editUser(id, user);
+	}
+    
+    @DeleteMapping("/deleteTask/{id}")
+    public void deleteTask(@PathVariable("id") int id) {
+    	//userService.deleteUser(id);
+	}
 }
