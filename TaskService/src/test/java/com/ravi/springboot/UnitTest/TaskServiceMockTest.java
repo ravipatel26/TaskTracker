@@ -30,9 +30,16 @@ public class TaskServiceMockTest {
 	private final String CREATE_TASK = "insert into task (taskDescription,taskStatus,userId) values('%s','pending',%d)";	
 	private final String COMPLETE_TASK = "update task set taskStatus='complete' where id=%d";
 	private final String DELETE_TASKS = "delete from task where userId=%d";
-	private int userId = 1;
-	private Task task1 = new Task(1, "task description 1", "pending", userId);
-	private Task task2 = new Task(2, "task description 1", "completed", userId);
+	private int userId;
+	private Task task1;
+	private Task task2;
+	
+	@Before
+    public void setUp() {
+		userId = 1;
+		task1 = new Task(1, "task description 1", "pending", userId);
+		task2 = new Task(2, "task description 1", "completed", userId);
+    }
 	
 	@Test
 	public void testGetAllTasksWithNoTasksInDatabase() {

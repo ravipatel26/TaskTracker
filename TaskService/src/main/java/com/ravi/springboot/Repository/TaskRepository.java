@@ -14,9 +14,7 @@ public class TaskRepository {
 	
 	public List<Task> executeRetrieveQuery(String query) 
 	{
-		System.out.println("Connecting database...");
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-		    System.out.println("Database connected!");
 		    Statement statement = connection.createStatement();
 		    ResultSet resultSet = statement.executeQuery(query);
 		    return convertResultSetToTaskList(resultSet);
@@ -27,9 +25,7 @@ public class TaskRepository {
 	
 	public int executeUpdateQuery(String query) 
 	{
-		System.out.println("Connecting database...");
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-		    System.out.println("Database connected!");
 		    Statement statement = connection.createStatement();
 		    int result = statement.executeUpdate(query);
 		    return result;

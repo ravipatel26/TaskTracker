@@ -44,7 +44,6 @@ export class TaskListComponent implements OnInit {
 
   updateTaskList() {
     this._taskService.getPendingTasks(this.userId).subscribe((tasks) => {
-      console.log("tasks:\n" + tasks);
       this.tasks = tasks;
     }, error => {
       console.log(error);
@@ -53,7 +52,6 @@ export class TaskListComponent implements OnInit {
 
   completeTask(task) {
     this._taskService.completeTask(task).subscribe((data) => {
-      console.log(data);
       this.updateTaskList();
     }, error => {
       console.log(error);
@@ -70,7 +68,6 @@ export class TaskListComponent implements OnInit {
     };
 
     this._taskService.createTask(task).subscribe((data) => {
-      console.log(data);
       this.updateTaskList();
     }, error => {
       console.log(error);

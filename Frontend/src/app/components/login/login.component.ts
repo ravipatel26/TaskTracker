@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
       else {
         alert('Invalid username/password');
       }
-      console.log(user);
     },(error)=>{
       alert('Could not validate username/password');
       this.loading = false;

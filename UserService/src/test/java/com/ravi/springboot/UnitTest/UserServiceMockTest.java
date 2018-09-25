@@ -53,7 +53,7 @@ public class UserServiceMockTest {
         mockServer = MockRestServiceServer.createServer(restTemplate);
         user1 = new User(1, "bruce", "wayne", "batman", "password", new Date(), "user");
     	user2 = new User(2, "matt", "murdock", "daredevil", "password", new Date(), "user");
-    	dateFormat = new SimpleDateFormat("yyyy-MM-dd");;
+    	dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 	
 	@Test

@@ -32,13 +32,18 @@ public class LoginServiceMockTest {
 	private final String GET_USER_BY_CREDENTIALS = "select * from user where username='%s' and password='%s'";
 	private final String USERNAME_MAP_KEY = "username";
 	private final String PASSWORD_MAP_KEY = "password";
-	private User user1 = new User(1, "bruce", "wayne", "admin", "password", new Date(), "user");
-	Map<String, Object> validCredentials = new HashMap<String, Object>();
-	Map<String, Object> nullCredentials = new HashMap<String, Object>();
-	Map<String, Object> invalidCredentials = new HashMap<String, Object>();
+	private User user;
+	private Map<String, Object> validCredentials;
+	private Map<String, Object> nullCredentials;
+	private Map<String, Object> invalidCredentials;
 	
 	@Before
 	public void setUp() {
+		user = new User(1, "bruce", "wayne", "admin", "password", new Date(), "user");
+		validCredentials = new HashMap<String, Object>();
+		nullCredentials = new HashMap<String, Object>();
+		invalidCredentials = new HashMap<String, Object>();
+		
 		validCredentials.put(USERNAME_MAP_KEY, "admin");
 		validCredentials.put(PASSWORD_MAP_KEY, "password");
 		nullCredentials.put(USERNAME_MAP_KEY, null);
@@ -65,9 +70,9 @@ public class LoginServiceMockTest {
 	@Test
 	public void testLoginWithUsersInDatabase() {
 		String query = String.format(GET_USER_BY_CREDENTIALS, "admin", "password");
-		Mockito.when(userRepositoryMock.executeRetrieveQuery(query)).thenReturn(Arrays.asList(user1));
-		assertEquals(true, user1.equals(loginService.login(validCredentials)));
-		assertEquals(false, user1.equals(loginService.login(nullCredentials)));
-		assertEquals(false, user1.equals(loginService.login(invalidCredentials)));
+		Mockito.when(userRepositoryMock.executeRetrieveQuery(query)).thenReturn(Arrays.asList(user));
+		assertEquals(true, user.equals(loginService.login(validCredentials)));
+		assertEquals(false, user.equals(loginService.login(nullCredentials)));
+		assertEquals(false, user.equals(loginService.login(invalidCredentials)));
 	}
 }
