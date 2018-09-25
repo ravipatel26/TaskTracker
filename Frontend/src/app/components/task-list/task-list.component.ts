@@ -69,6 +69,8 @@ export class TaskListComponent implements OnInit {
 
     this._taskService.createTask(task).subscribe((data) => {
       this.updateTaskList();
+      this.submitted = false;
+      this.taskForm.controls.description.setValue('');
     }, error => {
       console.log(error);
       alert("Task could not be added!");

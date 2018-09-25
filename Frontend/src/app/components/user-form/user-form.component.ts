@@ -54,9 +54,13 @@ export class UserFormComponent implements OnInit {
 
   deleteUser(user) {
     this._userService.deleteUser(user.id).subscribe((data) => {
-      this._router.navigate(["/admin/userList"]);
+      console.log(data);
+      setTimeout(() => {
+        this._router.navigate(["/admin/userList"]);
+      }, 2500);
     }, (error) => {
       console.log(error);
+      return;
     });
   }
 
@@ -94,6 +98,7 @@ export class UserFormComponent implements OnInit {
       this._router.navigate(["/admin/userList"]);
     },(error)=>{
       console.log(error);
+      return;
     })
   }
 }

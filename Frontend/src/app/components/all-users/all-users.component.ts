@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { UserFormComponent } from '../user-form/user-form.component';
 
 @Component({
@@ -15,8 +15,11 @@ export class AllUsersComponent implements OnInit {
 
   constructor(private _userService:UserService, private _router:Router) { 
     _router.events.subscribe(event => {
-      if (event instanceof UserFormComponent) {
-        this.ngOnInit();
+      console.log(event);
+      if (event instanceof UserFormComponent || event instanceof NavigationEnd) {
+        setInterval(() => 
+          this.ngOnInit()
+          , 2000);
       }
     })
   }
@@ -26,7 +29,7 @@ export class AllUsersComponent implements OnInit {
       this.users = users;
     }, error => {
       console.log(error);
-    })
+    });
   }
 
   editUser(user) {
