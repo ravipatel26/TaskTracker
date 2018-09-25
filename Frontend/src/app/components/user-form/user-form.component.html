@@ -49,10 +49,8 @@
       </div>
     </div>
     <input type="submit" value="Save" class="btn btn-outline-success">
+    <div *ngIf="user.id != undefined" style="margin-top: 10px;">
+      <button class="btn btn-outline-danger" (click)="deleteUser(user)">Delete</button>
+    </div>
   </form>
-</div>
-<div *ngIf="user.id != undefined">
-  <div class="container">
-    <button class="btn btn-outline-danger" (click)="deleteUser(user)">Delete</button>
-  </div>
 </div>
