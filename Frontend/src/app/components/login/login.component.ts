@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           this._router.navigate(["/admin/userList"]);
         else
           this._router.navigate(["/user/taskList"]);
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify({ id : user.id, role : user.role }));
       }        
       else {
         alert('Invalid username/password');
