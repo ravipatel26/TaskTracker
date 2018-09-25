@@ -13,7 +13,7 @@
         <tr *ngFor="let user of users">
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>
-          <td>{{user.dateOfBirth | date }}</td>
+          <td>{{user.dateOfBirth | date:'MMM dd, yyyy' }}</td>
           <td>{{user.username}}</td>
           <td>
             <button class="btn btn-outline-warning btn-sm" (click)="editUser(user)">Edit</button>
