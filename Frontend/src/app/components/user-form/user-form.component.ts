@@ -20,11 +20,11 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
     this.user = this._userService.getter();
     this.registerForm = this.formBuilder.group({
-                  firstName: ['', Validators.required],
-                  lastName: ['', Validators.required],
-                  username: [{value: '', disabled: this.user.username !== undefined}, Validators.required],
-                  password: ['', [Validators.required, Validators.minLength(6)]],
-                  confirmationPassword: [this.user.password, [Validators.required, Validators.minLength(6)]]
+                  firstName: ['', [Validators.required, Validators.maxLength(20)]],
+                  lastName: ['', [Validators.required, Validators.maxLength(20)]],
+                  username: [{value: '', disabled: this.user.username !== undefined}, [Validators.required, Validators.maxLength(20)]],
+                  password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+                  confirmationPassword: [this.user.password, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
                 });
   }
 
