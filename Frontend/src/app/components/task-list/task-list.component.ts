@@ -52,8 +52,13 @@ export class TaskListComponent implements OnInit {
   }
 
   completeTask(task) {
-    console.log("task: " + JSON.stringify(task));
-    //TODO: update task
+    this._taskService.completeTask(task).subscribe((data) => {
+      console.log(data);
+      this.updateTaskList();
+    }, error => {
+      console.log(error);
+      alert("Task could not be completed!");
+    })
   }
 
   createTask() {
