@@ -39,7 +39,7 @@ export class TaskListComponent implements OnInit {
       return;
     }
 
-    //TODO: create task
+    this.createTask();
   }
 
   updateTaskList() {
@@ -57,6 +57,19 @@ export class TaskListComponent implements OnInit {
   }
 
   createTask() {
-    
+    var task: Task = {
+      id: 0,
+      description: this.taskForm.controls.description.value,
+      userId: this.userId,
+      status: "pending"
+    };
+
+    this._taskService.createTask(task).subscribe((data) => {
+      console.log(data);
+      this.updateTaskList();
+    }, error => {
+      console.log(error);
+      alert("Task could not be added!");
+    })
   }
 }
