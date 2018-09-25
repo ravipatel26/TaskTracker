@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -88,7 +89,8 @@ public class UserServiceMockTest {
 	
 	@Test
 	public void testCreateUser() {
-		String query = String.format(CREATE_USER, user1.getFirstName(),user1.getLastName(),dateFormat.format(user1.getDateOfBirth()),user1.getUsername(),user1.getPassword());
+		String formattedDOB = LocalDate.parse(dateFormat.format(user1.getDateOfBirth())).plusDays(1).toString();
+		String query = String.format(CREATE_USER, user1.getFirstName(),user1.getLastName(),formattedDOB,user1.getUsername(),user1.getPassword());
 		Mockito.when(userRepositoryMock.executeUpdateQuery(query)).thenReturn(1);
 		assertEquals(0, userService.createUser(null));
 		assertEquals(0, userService.createUser(new User()));
@@ -97,7 +99,8 @@ public class UserServiceMockTest {
 	
 	@Test
 	public void testEditUser() {
-		String query = String.format(EDIT_USER, user1.getFirstName(),user1.getLastName(),dateFormat.format(user1.getDateOfBirth()),user1.getPassword(),1);
+		String formattedDOB = LocalDate.parse(dateFormat.format(user1.getDateOfBirth())).plusDays(1).toString();
+		String query = String.format(EDIT_USER, user1.getFirstName(),user1.getLastName(),formattedDOB,user1.getPassword(),1);
 		Mockito.when(userRepositoryMock.executeUpdateQuery(query)).thenReturn(1);
 		assertEquals(0, userService.editUser(0, null));
 		assertEquals(0, userService.editUser(1, null));

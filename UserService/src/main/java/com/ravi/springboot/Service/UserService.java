@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -42,14 +43,16 @@ public class UserService {
 	public int createUser(User user) {
 		if (user == null || doesUserHaveNullFields(user))
 			return 0;
-		String query = String.format(CREATE_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getUsername(),user.getPassword());
+		String formattedDOB = LocalDate.parse(dateFormat.format(user.getDateOfBirth())).plusDays(1).toString();
+		String query = String.format(CREATE_USER, user.getFirstName(),user.getLastName(),formattedDOB,user.getUsername(),user.getPassword());
 		return userRepository.executeUpdateQuery(query);
 	}
 	
 	public int editUser(int id, User user) {
 		if (id < 1 || user == null || doesUserHaveNullFields(user))
 			return 0;
-		String query = String.format(EDIT_USER, user.getFirstName(),user.getLastName(),dateFormat.format(user.getDateOfBirth()),user.getPassword(),id);
+		String formattedDOB = LocalDate.parse(dateFormat.format(user.getDateOfBirth())).plusDays(1).toString();
+		String query = String.format(EDIT_USER, user.getFirstName(),user.getLastName(),formattedDOB,user.getPassword(),id);
 		return userRepository.executeUpdateQuery(query);
 	}
 	
