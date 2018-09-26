@@ -16,3 +16,9 @@
 2. `ng serve --open` (website will run on `http://localhost:4200`)
 3. Open <path_to_repo>/TaskTracker/UserService in your IDE and run the project (`http://localhost:8080`)
 4. Open <path_to_repo>/TaskTracker/TaskService in your IDE and run the project (`http://localhost:8081`)
+
+### Bucket List
+1. Bootstrap calendar
+2. Get JPA working
+3. Deployment script
+4. Security (HTTPS)
